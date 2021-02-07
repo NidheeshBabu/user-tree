@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {%load static%}
+    <script src="{% static 'js/OrgChart.js' %}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{%static 'css/form.css'%}" rel="stylesheet"/>
+    <style type="text/css">
+    html, body{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin:0;
+  overflow: hidden;
+  font-family: Helvetica;
+}
+#tree{
+  width:100%;
+  height:100%;
+}
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <a href="/userRegForm/">REGISTER</a>
+
+    
+
+    <div style="width:100%; height:700px;" id="tree">
+        
+        
+    </div>
+    <script type="text/javascript">
+        OrgChart.templates.luba.field_0 = '<text class="field_0"  style="font-size: 20px;" fill="#ffffff" x="170" y="30" text-anchor="middle">{val}</text>';
+        OrgChart.templates.luba.field_1 = '<text class="field_1"  style="font-size: 14px;" fill="#ffffff" x="170" y="50" text-anchor="middle">Title:{val}</text>';
+        OrgChart.templates.luba.field_2 = '<text class="field_2"  style="font-size: 14px;" fill="#ffffff" x="170" y="70" text-anchor="middle">ID:{val}</text>';
+        OrgChart.templates.luba.field_3 = '<text class="field_3"  style="font-size: 14px;" fill="#ffffff" x="170" y="90" text-anchor="middle">Boss:{val}</text>';
+    
+        var userlist = "{{user}}";
+        var chart = new OrgChart(document.getElementById("tree"), {
+            template: "luba",
+            enableSearch: false,
+            mouseScrool: OrgChart.action.none,
+            nodeBinding: {
+                field_0: "name",
+                field_1: "title",
+                field_2: "Id",
+                field_3: "Boss",
+                img_0: "image",
+
+
+            },
+            nodes: [
+            
+                { id: '{{ruser.userId}}', name: '{{ruser.name}}', title: '{{ruser.title}}', email:'{{ruser.email}}', Id: '{{ruser.userId}}', Points: '{{ruser.currentPoints}}', image:'{{ruser.userImage}}' },
+
+                {% for us in user %}
+                    { id: '{{us.userId}}', pid: '{{us.parentNodeId}}' , name: '{{us.name}}', title: '{{us.title}}', email:'{{us.email}}', Id: '{{us.userId}}', Boss:'{{us.parentNodeId}}',Points: '{{us.currentPoints}}', image:'{{us.userImage}}' },
+                {% endfor %}
+                
+                
+            ]
+        });
+    </script>
+    
+</body>
+</html>

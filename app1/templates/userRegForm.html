@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{%static 'css/form.css'%}" rel="stylesheet"/>
+    <title>User Registration</title>
+</head>
+<body>
+    <div align="center">
+        <h2><b>REGISTER</b></h2>
+        
+        
+        <div class="container">
+          <p>Enter User Details</p>
+        </br>
+        <form method="POST" enctype="multipart/form-data" action="/userReg/">
+          {% csrf_token %}
+         
+          <div class="row">
+            <div class="col-75">
+               <input type="text" name="userName" placeholder="USER NAME" required><br>
+            </div>
+         </div>
+         <div class="row">
+          <div class="col-75">
+             <input type="text" name="userTitle" placeholder="USER TITLE" required><br>
+          </div>
+       </div>
+    
+            <div class="row">
+                <div class="col-75">
+                  <input type="email"  name="userEmail" placeholder="E-mail" size="40%" required><br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-75">
+                  <select name="parent">
+                      <option value="0" >Null</option>
+                    {% for user in users %}
+                      <option value="{{user.userId}}">{{user.name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-75">
+                  <input type="password"  name="userPass" placeholder="PASSWORD" size="40%" required><br>
+                </div>
+            </div>
+            <label>Upload Image</label>
+            <input type="file" name="uploadImage">
+            
+        
+            
+        
+          <br> <br> <br>
+          <div class="row">
+           <input type="submit" value="Register" align="center" ><br>
+          </div>
+        </form>
+
+</body>
+</html>
+
