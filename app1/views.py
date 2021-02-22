@@ -17,7 +17,10 @@ def index(request):
     return render(request,'index.html')
 
 def viewtree(request):
-    rootUser = tbl_user.objects.get(userId = 1)
+    try:
+        rootUser = tbl_user.objects.get(userId = 1)
+    except tbl_user.DoesNotExist:
+        rootUser = None
     users = tbl_user.objects.filter(~Q(userId = 1))
     return render(request,'viewtree.html',{'ruser':rootUser,'user':users})
 
