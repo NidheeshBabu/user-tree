@@ -1,4 +1,4 @@
-# user-tree
+# user-tree - Using Django
 <p>
 Tree architecture on the web with a corresponding database and front end views.
 Each node in the Tree is a user. any User can register and create an account, and he should be linked to a user/node in the tree.
